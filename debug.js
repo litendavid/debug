@@ -7,24 +7,15 @@
     DEBUG.js is an in-browser JavaScript error-reporter
     Read README.txt for instructions
  
+
+    Edited by David Waller
+    
 */
 
 
 (function(){
     
     var strictCommenting = true;
-    
-    // Load JSLINT, don't start until we've got it!
-    var lint = document.createElement('script'),
-        sInt = setInterval(function(){
-            if (window.JSLINT) {
-                clearInterval(sInt);
-                init();
-            }
-        }, 100);
-        
-    lint.src = 'http://www.jslint.com/fulljslint.js';
-    document.body.appendChild(lint);
     
     // Overlaying document; where the errors are displayed.
     var modal = (function(){
@@ -328,5 +319,22 @@
         }
         return str.join('').slice(2, -2);
     }
+    
+    
+    // Load JSLINT, don't start until we've got it!
+    if (!window.JSLINT){
+    	var lint = document.createElement('script'),
+        	sInt = setInterval(function(){
+            	if (window.JSLINT) {
+                	clearInterval(sInt);
+	                init();
+            	}
+	        }, 100);
+        
+    	lint.src = 'http://www.jslint.com/fulljslint.js';
+    	document.body.appendChild(lint);
+	}
+	else
+		init();
     
 })();
